@@ -62,15 +62,15 @@ defmodule CodingLib.Analysis do
         MapSet.new(
           Enum.filter(
             List.flatten(
-              for u <- codes_prev, do: (
-                for v <- codes_prev, do: (
-                  if (String.length(u) > String.length(v)) and starts_with?(u, v) do
+              for u <- codes_prev do
+                for v <- codes_prev do
+                  if String.length(u) > String.length(v) and starts_with?(u, v) do
                     String.slice(u, String.length(v)..-1)
                   end
-                )
-              )
+                end
+              end
             ),
-            &(!(&1 == nil or &1 == ""))
+            &(&1 != nil and &1 != "")
           )
         )
       )
